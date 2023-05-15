@@ -39,9 +39,9 @@ float verify(const GMM &gmm_candidate, const GMM & gmm_world, const fmatrix &dat
 	  The decision is based on the returned value
 	 */
 	float score = 0.0F;
-  	lprobcand = gmm_candidate.logprob(dat);
-  	lprobbackground = gmm_world.logprob(dat);
-  	score = lprobcand-lprobbackground;
+	lprobcand = 0.0F;
+	lprobbackground = 0.0F;
+
 	return score;
 
 }
