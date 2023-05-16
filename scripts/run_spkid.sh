@@ -189,7 +189,8 @@ for cmd in $*; do
        # candidato para la señal a verificar. En $FINAL_VERIF se pide que la tercera columna sea 1,
        # si se considera al candidato legítimo, o 0, si se considera impostor. Las instrucciones para
        # realizar este cambio de formato están en el enunciado de la práctica.
-
+    
+    echo "To be implemented ..."
    
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.
