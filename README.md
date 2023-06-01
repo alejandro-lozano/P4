@@ -32,9 +32,11 @@ ejercicios indicados.
 - Analice el script `wav2lp.sh` y explique la misión de los distintos comandos involucrados en el *pipeline*
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
-  > En el script 'wav2lp.sh' encontramos el siguiente pipeline principal:
+>En el script 'wav2lp.sh' encontramos el siguiente pipeline principal:
 >sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
 	$LPC -l 240 -m $lpc_order > $base.lp || exit 1
+>* `sox`:Se trata de una herramienta de línea de comandos multiplataforma, compatible con Windows, Linux, MacOS X, y más. Su función principal es la conversión de diversos formatos de archivos de audio a otros formatos. Además, ofrece la capacidad de aplicar varios efectos a estos archivos de sonido. También permite reproducir y grabar archivos de audio en la mayoría de las plataformas. En el código proporcionado, se ha utilizado sox para convertir un archivo de entrada en formato raw a un formato de enteros con signo (signed-integer) de 16 bits por muestra. Esto se ha logrado mediante el uso de las opciones '-t', '-e' y '-b'. 
+>
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 51 del script `wav2lp.sh`).
