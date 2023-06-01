@@ -44,7 +44,7 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
 >	* `-t`: Formato del fichero de entrada de audio. En nuestro programa es raw.
 >	* `-e`: Tipo de codificación aplicada al fichero de entrada. En nuestro programa es signed-integer.
 >	* `-b`: Indica el sample size, o sea, el número de bits por muestra utilizado en la codifiación. En nustro programa es 16 bits.
->* `$X2X`: Permite convertir datos de una entrada a otro tipo de datos. En nuestro programa usamos short format (sf).
+>* `$X2X`: Permite convertir datos de una entrada a otro tipo de datos. En nuestro programa usamos short float (sf).
 >* `$FRAME`: Divide la secuencia de datos de un archivo en diferentes tramas, convierte la señal a tramas de 'l' muestras con desplazamientos de 'p' muestras. En nuestro programa divide en segmentos de 240 muestras con un desplazamiento entre las tramas de 80 muestras.
 >* `$WINDOW`: Enventana una trama de datos multiplicando los elementos de la señal de entrada, que tiene una duración de l, por los elementos de una ventana específica w, obteniendo así una trama enventanada de duración L. En este caso particular, hemos utilizado una longitud de ventana igual a la duración de la trama (l=L=240 muestras) y se ha seleccionado la ventana Blackman, que va por defecto (w=0).
 >* `$LPC`: Calcula los coeficientes de predicción lineal (LPC) de orden m de las l muestras de la señal de entrada usando el método de Levinson-Durbin. En nuestro programa l=240 muestras y con la opción -m se pone el número usado de coeficientes.
@@ -61,15 +61,19 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
    $LPC -l 240 -m $lpc_order > $base.lp || exit 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
->Después tenemos las líneas de código que calculan el número de filas y de columnas:
+>Después tenemos las líneas de código que calculan el número de filas y de columnas de la matriz:
 >
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 # Our array files need a header with the number of cols and rows:
 ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
 nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-  * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
+>
+>El parámetro "ncol" especifica el número de columnas que tendrá la matriz. En este caso, el número de columnas debe ser igual al orden del LPC (Linear Predictive Coding) más uno. Esto se debe a que el primer elemento de cada columna en la matriz representa la ganancia del sistema (potencia del error).
+>Por otro lado, el parámetro "nrow" se utiliza para convertir el contenido del archivo temporal "$base.lp" (que contiene los coeficientes) de formato float (indicado por "+f") a formato ASCII (indicado por "+a"). Luego, se utiliza el comando "wc -l" para contar el número de líneas del archivo ASCII, lo que nos dará el número de filas de la matriz en el archivo resultante "fmatrix". Finalmente, se utiliza el comando "perl -ne" para imprimir la matriz resultante, asegurando que haya un salto de línea entre filas y columnas.
+
+
+ * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
