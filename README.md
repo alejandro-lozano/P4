@@ -70,6 +70,7 @@ nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 >El parámetro "ncol" especifica el número de columnas que tendrá la matriz. En este caso, el número de columnas debe ser igual al orden del LPC (Linear Predictive Coding) más uno. Esto se debe a que el primer elemento de cada columna en la matriz representa la ganancia del sistema (potencia del error).
+>
 >Por otro lado, el parámetro "nrow" se utiliza para convertir el contenido del archivo temporal "$base.lp" (que contiene los coeficientes) de formato float (indicado por "+f") a formato ASCII (indicado por "+a"). Luego, se utiliza el comando "wc -l" para contar el número de líneas del archivo ASCII, lo que nos dará el número de filas de la matriz en el archivo resultante "fmatrix". Finalmente, se utiliza el comando "perl -ne" para imprimir la matriz resultante, asegurando que haya un salto de línea entre filas y columnas.
 
 
