@@ -77,7 +77,7 @@ nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
  * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
 >El formato fmatrix presenta una ventaja significativa ya que es mucho más cómodo para guardar los datos, ya que al trabajar con coeficientes de tramas permite un acceso más eficiente. Al adoptar una estructura matricial, los índices i,j de la matriz se corresponden directamente con los coeficientes i de la trama j, lo que resulta en un acceso sencillo a los diferentes coficientes de un audio en concreto (situándonos en la posición de la matriz que nos interese).
 >
->Si no se usa este formato matricial, los valores de los coeficientes aparecerían apelotonados, provocando que no fuera facíl trabajar con ellos.
+>Si no se usa este formato matricial, los valores de los coeficientes aparecerían apelotonados, provocando que no fuera fácil trabajar con ellos.
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
