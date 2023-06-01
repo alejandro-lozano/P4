@@ -35,8 +35,15 @@ ejercicios indicados.
 >En el script 'wav2lp.sh' encontramos el siguiente pipeline principal:
 >sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
 	$LPC -l 240 -m $lpc_order > $base.lp || exit 1
->* `sox`:Se trata de una herramienta de línea de comandos multiplataforma, compatible con Windows, Linux, MacOS X, y más. Su función principal es la conversión de diversos formatos de archivos de audio a otros formatos. Además, ofrece la capacidad de aplicar varios efectos a estos archivos de sonido. También permite reproducir y grabar archivos de audio en la mayoría de las plataformas. En el código proporcionado, se ha utilizado sox para convertir un archivo de entrada en formato raw a un formato de enteros con signo (signed-integer) de 16 bits por muestra. Esto se ha logrado mediante el uso de las opciones '-t', '-e' y '-b'. 
->
+>* `sox`:Se trata de una herramienta de línea de comandos multiplataforma, compatible con Windows, Linux, MacOS X, y más. Su función principal es la conversión de diversos formatos de archivos de audio a otros formatos. Además, ofrece la capacidad de aplicar varios efectos a estos archivos de sonido. También permite reproducir y grabar archivos de audio en la mayoría de las plataformas. 
+>En el código proporcionado, se ha utilizado sox para convertir un archivo de entrada en formato raw a un formato de enteros con signo (signed-integer) de 16 bits por muestra. Esto se ha logrado mediante el uso de las opciones '-t', '-e' y '-b'. 
+>	* `-t`: Formato del fichero de entrada de audio. En nuestro programa es raw.
+>	* `-e`: Tipo de codificación aplicada al fichero de entrada. En nuestro programa es signed-integer.
+>	* `-b`: Indica el sample size, o sea, el número de bits por muestra utilizado en la codifiación. En nustro programa es 16 bits.
+>* `$X2X`: Permite convertir datos de una entrada a otro tipo de datos. En nustro programa short format (sf).
+>* `$FRAME`: Divide la secuencia de datos de un archivo en diferentes tramas, convierte la señal a tramas de 'l' muestras con desplazamientos de 'p' muestras. En nuestro programa divide en segmentos de 240 muestras con un desplazamiento entre las tramas de 80 muestras.
+>* `$WINDOW`: Enventana una trama de datos multiplicando los elementos de la señal de entrada, que tiene una duración de l, por los elementos de una ventana específica w, obteniendo así una trama enventanada de duración L. En este caso particular, hemos utilizado una longitud de ventana igual a la duración de la trama (l=L=240 muestras) y se ha seleccionado la ventana Blackman, que va por defecto (w=0).
+>* `$LPC`: Calcula los coeficientes de predicción lineal (LPC) de orden m de las l muestra
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 51 del script `wav2lp.sh`).
