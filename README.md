@@ -33,6 +33,7 @@ ejercicios indicados.
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
 >En el script 'wav2lp.sh' encontramos el siguiente pipeline principal:
+>
 >sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
 	$LPC -l 240 -m $lpc_order > $base.lp || exit 1
 >* `sox`:Se trata de una herramienta de línea de comandos multiplataforma, compatible con Windows, Linux, MacOS X, y más. Su función principal es la conversión de diversos formatos de archivos de audio a otros formatos. Además, ofrece la capacidad de aplicar varios efectos a estos archivos de sonido. También permite reproducir y grabar archivos de audio en la mayoría de las plataformas. 
