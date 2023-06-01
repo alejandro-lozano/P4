@@ -34,8 +34,11 @@ ejercicios indicados.
   opciones empleadas y de sus valores.
 >En el script 'wav2lp.sh' encontramos el siguiente pipeline principal:
 >
->sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$LPC -l 240 -m $lpc_order > $base.lp || exit 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+# Main command for feature extraction
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+   $LPC -l 240 -m $lpc_order > $base.lp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >* `sox`:Se trata de una herramienta de línea de comandos multiplataforma, compatible con Windows, Linux, MacOS X, y más. Su función principal es la conversión de diversos formatos de archivos de audio a otros formatos. Además, ofrece la capacidad de aplicar varios efectos a estos archivos de sonido. También permite reproducir y grabar archivos de audio en la mayoría de las plataformas. 
 >En el código proporcionado, se ha utilizado sox para convertir un archivo de entrada en formato raw a un formato de enteros con signo (signed-integer) de 16 bits por muestra. Esto se ha logrado mediante el uso de las opciones '-t', '-e' y '-b'. 
 >	* `-t`: Formato del fichero de entrada de audio. En nuestro programa es raw.
@@ -52,13 +55,19 @@ ejercicios indicados.
 >
 >Primero tenemos las líneas de código ya explicadas en el apartado anterior:
 >
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+# Main command for feature extraction
 sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$LPC -l 240 -m $lpc_order > $base.lp || exit 1
+   $LPC -l 240 -m $lpc_order > $base.lp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 >Después tenemos las líneas de código que calculan el número de filas y de columnas:
 >
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+# Our array files need a header with the number of cols and rows:
 ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
 nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
   * ¿Por qué es más conveniente el formato *fmatrix* que el SPTK?
 
