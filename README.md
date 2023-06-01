@@ -43,7 +43,7 @@ ejercicios indicados.
 >* `$X2X`: Permite convertir datos de una entrada a otro tipo de datos. En nustro programa short format (sf).
 >* `$FRAME`: Divide la secuencia de datos de un archivo en diferentes tramas, convierte la señal a tramas de 'l' muestras con desplazamientos de 'p' muestras. En nuestro programa divide en segmentos de 240 muestras con un desplazamiento entre las tramas de 80 muestras.
 >* `$WINDOW`: Enventana una trama de datos multiplicando los elementos de la señal de entrada, que tiene una duración de l, por los elementos de una ventana específica w, obteniendo así una trama enventanada de duración L. En este caso particular, hemos utilizado una longitud de ventana igual a la duración de la trama (l=L=240 muestras) y se ha seleccionado la ventana Blackman, que va por defecto (w=0).
->* `$LPC`: Calcula los coeficientes de predicción lineal (LPC) de orden m de las l muestra
+>* `$LPC`: Calcula los coeficientes de predicción lineal (LPC) de orden m de las l muestras de la señal de entrada usando el método de Levinson-Durbin. En nuestro programa l=240 muestras y con la opción -m se pone el número usado de coeficientes.
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 51 del script `wav2lp.sh`).
