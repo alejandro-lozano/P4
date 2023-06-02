@@ -221,6 +221,7 @@ namespace upc
 			old_prob = new_prob;
 
 			if (fabs(inc_prob) < inc_threshold) return 0; 
+			
 			this->em_maximization(data,weights);
 
 			if (verbose & 01)

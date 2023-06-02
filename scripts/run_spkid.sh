@@ -18,11 +18,10 @@ set -o pipefail
 # - db_devel: directory of the speecon database used during development
 # - db_test:  directory of the database used in the final test
 lists=lists
-w=work 
+w=work
 name_exp=one
 db_devel=spk_8mu/speecon
 db_test=spk_8mu/sr_test
-world=users
 
 # Ficheros de resultados del reconocimiento y verificación
 LOG_CLASS=$w/class_${FEAT}_${name_exp}.log
@@ -87,6 +86,26 @@ compute_lp() {
     done
 }
 
+compute_lpcc(){
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 15 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
+compute_mfcc(){
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 18 30 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
 #  Set the name of the feature (not needed for feature extraction itself)
 if [[ ! -n "$FEAT" && $# > 0 && "$(type -t compute_$1)" = function ]]; then
     FEAT=$1
@@ -140,8 +159,7 @@ for cmd in $*; do
        # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
        #
        # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       EXEC="gmm_train -i 0 -v 1 -T 0.001 -N 5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
-           echo $EXEC && $EXEC || exit 1
+       echo "Implement the trainworld option ..."
 
    elif [[ $cmd == verify ]]; then
        ## @file
@@ -153,10 +171,6 @@ for cmd in $*; do
        #   * <code> gmm_verify ... > $LOG_VERIF </code>
        #   * <code> gmm_verify ... | tee $LOG_VERIF </code>
        echo "Implement the verify option ..."
-
-
-    #EXEC="gmm_verify $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
-           #echo $EXEC && $EXEC || exit 1
 
    elif [[ $cmd == verifyerr ]]; then
        if [[ ! -s $LOG_VERIF ]] ; then
@@ -176,13 +190,7 @@ for cmd in $*; do
        #
        # El fichero con el resultado del reconocimiento debe llamarse $FINAL_CLASS, que deberá estar en el
        # directorio de la práctica (PAV/P4).
-       
-       #parametrizar las señales
-       compute_$FEAT $db_test $lists/final/class.test
-        # 
-       EXEC="gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/class.test"
-        echo $EXEC && $EXEC | tee $FINAL_CLASS || exit 1
-    
+       echo "To be implemented ..."
    
    elif [[ $cmd == finalverif ]]; then
        ## @file
@@ -201,23 +209,8 @@ for cmd in $*; do
        # candidato para la señal a verificar. En $FINAL_VERIF se pide que la tercera columna sea 1,
        # si se considera al candidato legítimo, o 0, si se considera impostor. Las instrucciones para
        # realizar este cambio de formato están en el enunciado de la práctica.
-    
-    #hay que desomentarlo
-
-    if true; then
-    echo Ajusta el umbral 
-    exit 0
-    fi
-    # Así nos acordaremos de sacarlo. Para ejecutarlo lo cambias por FALSE.
-    compute_$FEAT $db_test $lists/final/verif.test
-   EXEC ="gmm_verify -d work/$FEAT -D work/gmm/$FEAT -E gmm -w $world lists/gmm.list lists/verif.test lists/final/verif.test.candidates" 
-   echo $EXEC && $EXEC | tee $TEMP_VERIF || exit 1
-
-   perl -ane 'print "$F[0]\t$F[1]\t";
-        if ($F[2] > -3.214) {print "1\n"} 
-        else {print "0\n"}' $TEMP_VERIF | tee $FINAL_VERIF
-#en la evaluación final pongo el mejor umbral
-#cambiar el umbral segun verif, verifierr->final
+       echo "To be implemented ..."
+   
    # If the command is not recognize, check if it is the name
    # of a feature and a compute_$FEAT function exists.
    elif [[ "$(type -t compute_$cmd)" = function ]]; then
