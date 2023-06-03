@@ -109,6 +109,98 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+>* Completamos las funciones `compute` de los distintos métodos (en el script run_spkid):
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+compute_lp() {
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
+compute_lpcc(){
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 15 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+
+compute_mfcc(){
+    db=$1
+    shift
+    for filename in $(sort $*); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 18 30 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>* Hacemos run_spkid para cada una de las tres parametrizaciones en la ventana de comandos (para el locutor en '/BLOCK01/SES017/'):
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+run_spkid lp
+run_spkid lpcc
+run_spkid mfcc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>* Otra vez en la ventana de comandos, generamos los archivos .txt para cada parametrización:
+>	* Parametrización LP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f4,5 > ./graficas/lp_graf.txt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>	* Parametrización LPCC
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+fmatrix_show work/lpcc/BLOCK01/SES017/*.lpcc | egrep '^\[' | cut -f4,5 > ./graficas/lpcc_graf.txt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>	* Parametrización MFCC
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+fmatrix_show work/mfcc/BLOCK01/SES017/*.mfcc | egrep '^\[' | cut -f4,5 > mfcc_graf.txt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>* Finalmente, en MATLAB ejecutamos el siguiente código para conseguir las gráficas de cada parametrización:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+% Configuración de los archivos y títulos
+files = {'lp_graf.txt', 'lpcc_graf.txt', 'mfcc_graf.txt'};
+titles = {'Linear Prediction Coefficients', 'Linear Prediction Cepstrum Coefficients', 'Mel Frequency Cepstrum Coefficients'};
+% Configuración del estilo de los marcadores
+markers = {'r', 'g', 'b'};
+% Configuración de las etiquetas de los ejes
+xLabel = 'Coeficiente 2';
+yLabel = 'Coeficiente 3';
+% Configuración del tamaño del marcador
+markerSize = 1.5;
+% Configuración del tamaño de la fuente del título
+titleFontSize = 15;
+% Configuración de la cuadrícula
+gridStatus = true;
+% Trazar las gráficas en ventanas separadas
+for i = 1:numel(files)
+    % Cargar los datos
+    data = dlmread(files{i});
+    X = data(:, 1);
+    Y = data(:, 2);
+    
+    % Crear una nueva ventana de gráfica
+    figure;
+    
+    % Trazar los datos
+    plot(X, Y, [markers{i} 'd'], 'MarkerSize', markerSize);
+    
+    % Configurar el título, etiquetas de ejes y cuadrícula
+    title(titles{i}, 'FontSize', titleFontSize);
+    xlabel(xLabel);
+    ylabel(yLabel);
+    grid(gca, gridStatus);
+    
+    % Ajustar los límites de los ejes para mostrar todas las muestras
+    xlim([min(X) max(X)]);
+    ylim([min(Y) max(Y)]);
+end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   + ¿Cuál de ellas le parece que contiene más información?
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
