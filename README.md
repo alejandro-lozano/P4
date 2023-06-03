@@ -203,7 +203,12 @@ end
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   + ¿Cuál de ellas le parece que contiene más información?
+>Si examinamos detenidamente, podemos notar una diferencia significativa entre los coeficientes del LPCC y MFCC en comparación con el LPC. Los coeficientes del LPC exhiben una mayor coherencia y están más alineados, formando una zona con muchas muestras. Esto sugiere una correlación más fuerte y una menor dispersión, lo que se traduce en una menor entropía y, por lo tanto, mayor cantida de información.
 
+>Por otro lado, tanto el LPCC como el MFCC muestran coeficientes dispersos y distribuidos de manera menos zonificada en el espacio. La dispersión de los coeficientes implica una correlación más débil y una mayor variabilidad, lo que se refleja en una mayor entropía y, por tanto, una mayor cantidad de infromación. Específicamente, los coeficientes del MFCC tienen un rango mucho más amplio, abarcando valores de 20 a 25, mientras que los valores del LPC se encuentran más comprimidos entre -1 y 1.
+
+>En conclusión, el LPC es el que aporta menos información debido a su alta correlación y baja entropía, mientras que los coeficientes del MFCC son los que presentan una correlación más débil y una mayor entropía, lo que indica una mayor cantidad de información capturada en ellos.
+>
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
