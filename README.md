@@ -99,7 +99,10 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
 >
->![graficas](https://github.com/alejandro-lozano/P4/assets/127206937/67ad75d0-3f34-4fd7-8f8a-b0a938304a96)
+>![image (37)](https://github.com/alejandro-lozano/P4/assets/127206937/5e508439-a42e-4481-a5d2-a7797b783da6)
+>![image (38)](https://github.com/alejandro-lozano/P4/assets/127206937/3aeddfca-b8cf-46a0-aad7-d7be1aeaca05)
+>![image (39)](https://github.com/alejandro-lozano/P4/assets/127206937/e4abed77-4a8d-463f-be22-d55174120475)
+
 
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
