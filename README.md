@@ -81,14 +81,26 @@ nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'`
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+# Main command for feature extration
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+	$LPC -l 240 -m $lpc_order | $LPCC -m $lpc_order -M $lpcc_order > $base.lpcc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+# Main command for feature extration
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+$MFCC -l 240 -m $mfcc_order -n $filterbank_order -s $sampling_freq  > $base.mfcc
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Extracción de características.
 
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
+>
+>![graficas](https://github.com/alejandro-lozano/P4/assets/127206937/67ad75d0-3f34-4fd7-8f8a-b0a938304a96)
+
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
