@@ -223,8 +223,12 @@ pearson -N work/mfcc/BLOCK01/SES017/*.mfcc >mfcc_pearson.txt
   | &rho;<sub>x</sub>[2,3] |  -0.874552    |   0.181986   |  -0.177738    |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
-  
+>Los coeficientes de LP presentan la mayor correlación, seguidos por LPCC y MFCC. Al analizar los valores normalizados utilizando el coeficiente de correlación de Pearson, esta afirmación se confirma. Se observa que el coeficiente de correlación normalizada para LP es el más lejano a 0, casi alcanzando -1. En el LPCC y el MFCC, aunque presentan valores muy similares, se verifica que la correlación es menor para el MFCC ya que el valor es más cercano a cero.
+>
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
+>De acuerdo con la teoría que hemos estudiado en clase, se recomienda que el orden del LPCC se encuentre cerca de 13. Esto implica que se debe considerar un valor cercano a esta cantidad para obtener resultados adecuados en el cálculo de los coeficientes LPCC.
+
+>En el caso de los MFCC, se ha estudiado que el número de filtros Mel utilizados suele estar en el rango de 24 a 40. Estos filtros permiten capturar diferentes regiones de frecuencia y extraer características relevantes para el análisis. Además, se suele utilizar un número de coeficientes de MFCC de 13, lo que proporciona una representación compacta y significativa de la señal.
 
 ### Entrenamiento y visualización de los GMM.
 
