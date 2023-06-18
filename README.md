@@ -317,6 +317,7 @@ Complete el código necesario para realizar verificación del locutor y optimice
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
 >
+>Observamos que el mejor método es el LPCC, obteniendo el siguiente resultado:
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/35755efa-d9e9-4827-9c73-cb156f789cf7)
 
   |                    | LPCC (verificación) |
