@@ -286,7 +286,8 @@ plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/cb0c5faf-83a4-4037-a292-be774ccd2712)
-
+>
+>El modelo correcto para estas muestras sería el siguiente:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
