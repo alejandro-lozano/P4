@@ -236,10 +236,28 @@ Complete el código necesario para entrenar modelos GMM.
 
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
+  
+  plot_gmm_feat work/gmm/mfcc/SES008.gmm
+  <img width="276" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/866b0461-f4a8-436f-b958-e5e6193471a6">
+
+gmm_train -d work/lp -e lp -g SES008.gmm -m 10 -N 100000 -T  0.0001 -i 2 lists/class/SES008.train
+python3 scripts/plot_gmm_feat.py SES008.gmm
+<img width="279" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/52635f99-7b18-499d-b2ab-678e47f7364a">
+
+plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
+<img width="277" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/7abffc02-d919-461d-b68d-77d6be015fab">
+
+plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
+<img width="277" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/39649c80-22ce-4459-aa4e-07c1659dca42">
+
+ plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
+ <img width="272" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/2f1bd181-3366-4779-98be-9c7c6bb14163">
 
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
+
+  
 
 ### Reconocimiento del locutor.
 
