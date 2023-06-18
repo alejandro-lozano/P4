@@ -332,7 +332,7 @@ Complete el código necesario para realizar verificación del locutor y optimice
 
 - Adjunte, en el repositorio de la práctica, los ficheros `class_test.log` y `verif_test.log` 
   correspondientes a la evaluación *ciega* final.
-
+>Los dos ficheros están en la carpeta work.
 ### Trabajo de ampliación.
 
 - Recuerde enviar a Atenea un fichero en formato zip o tgz con la memoria (en formato PDF) con el trabajo 
