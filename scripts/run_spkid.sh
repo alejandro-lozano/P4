@@ -133,7 +133,7 @@ for cmd in $*; do
        for dir in $db_devel/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           EXEC="gmm_train -v 255 -T 0.0001 -N 64 -m 32 -i 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
+           EXEC="gmm_train -v 255 -T 0.0001 -N 60 -m 32 -i 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train"
            echo $EXEC && $EXEC || exit 1
            echo
        done
@@ -159,7 +159,7 @@ for cmd in $*; do
        # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
        #
        # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-        EXEC="gmm_train -v 255 -T 0.0001 -N 64 -m 32 -i 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
+        EXEC="gmm_train -v 255 -T 0.0001 -N 60 -m 32 -i 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train"
            echo $EXEC && $EXEC || exit 1
 
    elif [[ $cmd == verify ]]; then
@@ -222,7 +222,7 @@ for cmd in $*; do
         EXEC="gmm_verify -d work/$FEAT -e $FEAT -D work/gmm/$FEAT -E gmm -w $world lists/gmm.list lists/final/verif.test lists/final/verif.test.candidates"
         echo $EXEC && $EXEC | tee $TEMP_VERIF || exit 1
         perl -ane 'print "$F[0]\t$F[1]\t";
-        if ($F[2] > 0.185261659015597) {print "1\n"}
+        if ($F[2] > 0.295263003107001) {print "1\n"}
         else {print "0\n"}' $TEMP_VERIF | tee $FINAL_VERIF
    
    # If the command is not recognize, check if it is the name
