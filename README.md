@@ -236,10 +236,66 @@ Complete el código necesario para entrenar modelos GMM.
 
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
+>
+>Después de completar el entrenamiento de todos los modelos, podemos utilizar el siguiente comando para visualizar la gráfica del locutor SES008:
+>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES008.gmm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/1407074d-587d-47ae-907e-aaf4bc1ea05e)
+>
+>Para obtener una representación de las funciones de densidad e probabilidad más detallada, podemos usar el siguiente comando:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+gmm_train -d work/lp -e lp -g SES008.gmm -m 64 -N 32 -T  0.0001 -i 2 lists/class/SES008.train
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>Donde los parámetros del comando son los siguientes:
+>* El directorio de los ficheros de entrada se indica con el argumento -d.
+>* La extensión de los ficheros de entrada se especifica con el argumento -lp.
+>* El nombre del fichero de salida se proporciona utilizando el argumento -g.
+>* El número de gaussianas se define con el argumento -m.
+>* El número máximo de iteraciones se establece con el argumento -N.
+>* El umbral de convergencia se determina utilizando el argumento -T. En este caso, el valor es 0.0001.
+>* El método de inicialización se indica con el argumento -i.
+>
+>Mediante el siguiente comando generamos la gráfica deseada:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+python3 scripts/plot_gmm_feat.py SES008.gmm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/1c53efed-043b-447f-9f34-286378149ac2)
 
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
+>
+>Para visualizar la gráfica del modelo GMM anterior, el SES008, junto con las muestras del locutor correspondiente, utilizamos el siguiente comando:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/556db2da-b9f4-44db-8ade-a7aadb6b1bda)
+>
+>Podemos observar cómo la concentración más alta de muestras del locutor SES008 coincide con la predicción de la región en el gráfico anterior.
+
+Ahora, podemos emplear las muestras de otro locutor para observar cómo existe una menor correlación entre las muestras y la región estimada, lo que resulta en una modulación no muy buena. A modo de ejemplo, utilizamos las muestras del locutor SES015.
+>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/cb0c5faf-83a4-4037-a292-be774ccd2712)
+>
+>El modelo correcto para estas muestras sería el siguiente:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/57ec5ac5-470a-453d-bec4-879a5d24b549)
+
+
+  
 
 ### Reconocimiento del locutor.
 
@@ -248,6 +304,9 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
 >
+  |                        | LP        | LPCC 	   | MFCC      |
+  |------------------------|:---------:|:---------:|:---------:|
+  | Error Rate 		   |   9.55%   |   0.38%   |   1.15%   |
 
 ### Verificación del locutor.
 
@@ -257,12 +316,23 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+>
+>Observamos que el mejor método es el LPCC, obteniendo el siguiente resultado:
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/35755efa-d9e9-4827-9c73-cb156f789cf7)
+
+  |                    | LPCC (verificación) |
+  |--------------------|:-------------------:| 
+  | Umbral óptimo      |   0.295263003107001 |      		  
+  | Falsas alarmas     |   1/1000=0.0010     |                          
+  | Pérdidas           |   8/250=0.0320      |                          
+  | Coste de detección |       4.1           |
  
 ### Test final
 
 - Adjunte, en el repositorio de la práctica, los ficheros `class_test.log` y `verif_test.log` 
   correspondientes a la evaluación *ciega* final.
-
+>Los dos ficheros están en la carpeta work.
 ### Trabajo de ampliación.
 
 - Recuerde enviar a Atenea un fichero en formato zip o tgz con la memoria (en formato PDF) con el trabajo 
