@@ -236,16 +236,30 @@ Complete el código necesario para entrenar modelos GMM.
 
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
+>
+>Después de completar el entrenamiento de todos los modelos, podemos utilizar el siguiente comando para visualizar la gráfica del locutor SES008:
+>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/1407074d-587d-47ae-907e-aaf4bc1ea05e)
-
+>
+>Para obtener una representación de las funciones de densidad e probabilidad más detallada, podemos usar el siguiente comando:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
-gmm_train -d work/lp -e lp -g SES008.gmm -m 10 -N 100000 -T  0.0001 -i 2 lists/class/SES008.train
+gmm_train -d work/lp -e lp -g SES008.gmm -m 64 -N 32 -T  0.0001 -i 2 lists/class/SES008.train
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
+>Donde los parámetros del comando son los siguientes:
+>* El directorio de los ficheros de entrada se indica con el argumento -d.
+>* La extensión de los ficheros de entrada se especifica con el argumento -lp.
+>* El nombre del fichero de salida se proporciona utilizando el argumento -g.
+>* El número de gaussianas se define con el argumento -m.
+>* El número máximo de iteraciones se establece con el argumento -N.
+>* El umbral de convergencia se determina utilizando el argumento -T. En este caso, el valor es 0.0001.
+>* El método de inicialización se indica con el argumento -i.
+>
+>Mediante el siguiente comando generamos la gráfica deseada:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 python3 scripts/plot_gmm_feat.py SES008.gmm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -255,13 +269,18 @@ python3 scripts/plot_gmm_feat.py SES008.gmm
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
-  
+>
+>Para visualizar la gráfica del modelo GMM anterior, el SES008, junto con las muestras del locutor correspondiente, utilizamos el siguiente comando:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 >
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/556db2da-b9f4-44db-8ade-a7aadb6b1bda)
+>
+>Podemos observar cómo la concentración más alta de muestras del locutor SES008 coincide con la predicción de la región en el gráfico anterior.
 
+Ahora, podemos emplear las muestras de otro locutor para observar cómo existe una menor correlación entre las muestras y la región estimada, lo que resulta en una modulación no muy buena. A modo de ejemplo, utilizamos las muestras del locutor SES015.
+>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
