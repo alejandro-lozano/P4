@@ -244,16 +244,20 @@ Complete el código necesario para entrenar modelos GMM.
 
 gmm_train -d work/lp -e lp -g SES008.gmm -m 10 -N 100000 -T  0.0001 -i 2 lists/class/SES008.train
 python3 scripts/plot_gmm_feat.py SES008.gmm
-<img width="279" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/52635f99-7b18-499d-b2ab-678e47f7364a">
+![image](https://github.com/alejandro-lozano/P4/assets/127206937/1c53efed-043b-447f-9f34-286378149ac2)
+
 
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
-<img width="277" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/7abffc02-d919-461d-b68d-77d6be015fab">
+![image](https://github.com/alejandro-lozano/P4/assets/127206937/556db2da-b9f4-44db-8ade-a7aadb6b1bda)
+
 
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
-<img width="277" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/39649c80-22ce-4459-aa4e-07c1659dca42">
+![image](https://github.com/alejandro-lozano/P4/assets/127206937/cb0c5faf-83a4-4037-a292-be774ccd2712)
+
 
  plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
- <img width="272" alt="image" src="https://github.com/alejandro-lozano/P4/assets/125287859/2f1bd181-3366-4779-98be-9c7c6bb14163">
+ ![image](https://github.com/alejandro-lozano/P4/assets/127206937/57ec5ac5-470a-453d-bec4-879a5d24b549)
+
 
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
