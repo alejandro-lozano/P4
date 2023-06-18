@@ -236,27 +236,39 @@ Complete el código necesario para entrenar modelos GMM.
 
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
-  
-  plot_gmm_feat work/gmm/mfcc/SES008.gmm
-  ![image](https://github.com/alejandro-lozano/P4/assets/127206937/1407074d-587d-47ae-907e-aaf4bc1ea05e)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES008.gmm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/1407074d-587d-47ae-907e-aaf4bc1ea05e)
 
-
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 gmm_train -d work/lp -e lp -g SES008.gmm -m 10 -N 100000 -T  0.0001 -i 2 lists/class/SES008.train
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 python3 scripts/plot_gmm_feat.py SES008.gmm
-![image](https://github.com/alejandro-lozano/P4/assets/127206937/1c53efed-043b-447f-9f34-286378149ac2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/1c53efed-043b-447f-9f34-286378149ac2)
 
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
-![image](https://github.com/alejandro-lozano/P4/assets/127206937/556db2da-b9f4-44db-8ade-a7aadb6b1bda)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/556db2da-b9f4-44db-8ade-a7aadb6b1bda)
 
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK01/SES015/SA015S* &
-![image](https://github.com/alejandro-lozano/P4/assets/127206937/cb0c5faf-83a4-4037-a292-be774ccd2712)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/cb0c5faf-83a4-4037-a292-be774ccd2712)
 
-
- plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
- ![image](https://github.com/alejandro-lozano/P4/assets/127206937/57ec5ac5-470a-453d-bec4-879a5d24b549)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
+plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+>![image](https://github.com/alejandro-lozano/P4/assets/127206937/57ec5ac5-470a-453d-bec4-879a5d24b549)
 
 
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
