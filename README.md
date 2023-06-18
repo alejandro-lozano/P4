@@ -252,6 +252,10 @@ python3 scripts/plot_gmm_feat.py SES008.gmm
 >
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/1c53efed-043b-447f-9f34-286378149ac2)
 
+- Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
+  de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
+  del modelado GMM para diferenciar las señales de uno y otro.
+  
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
 plot_gmm_feat work/gmm/mfcc/SES008.gmm work/mfcc/BLOCK00/SES008/SA008S* &
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -270,10 +274,6 @@ plot_gmm_feat work/gmm/mfcc/SES015.gmm work/mfcc/BLOCK01/SES015/SA015S* &
 >
 >![image](https://github.com/alejandro-lozano/P4/assets/127206937/57ec5ac5-470a-453d-bec4-879a5d24b549)
 
-
-- Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
-  de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
-  del modelado GMM para diferenciar las señales de uno y otro.
 
   
 
