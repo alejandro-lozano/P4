@@ -238,7 +238,8 @@ Complete el código necesario para entrenar modelos GMM.
   para sus dos primeros coeficientes de MFCC.
   
   plot_gmm_feat work/gmm/mfcc/SES008.gmm
-  ![image](https://github.com/alejandro-lozano/P4/assets/127206937/e1826839-ba3e-4532-bb6b-67362b69acf6)
+  ![image](https://github.com/alejandro-lozano/P4/assets/127206937/1407074d-587d-47ae-907e-aaf4bc1ea05e)
+
 
 
 gmm_train -d work/lp -e lp -g SES008.gmm -m 10 -N 100000 -T  0.0001 -i 2 lists/class/SES008.train
